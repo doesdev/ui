@@ -46,22 +46,6 @@ func NewWindow(title string, width int, height int, hasMenubar bool) *Window {
 	return w
 }
 
-// NewWindow creates a new Window.
-func NewWindowBorderless(title string, width int, height int, hasMenubar bool) *Window {
-	w := new(Window)
-
-	ctitle := C.CString(title)
-	// TODO wait why did I make these ints and not intmax_ts?
-	w.w = C.uiWindowBorderless(ctitle, C.int(width), C.int(height), frombool(hasMenubar))
-	w.c = (*C.uiControl)(unsafe.Pointer(w.w))
-	freestr(ctitle)
-
-	C.realuiWindowOnClosing(w.w)
-	windows[w.w] = w
-
-	return w
-}
-
 // Destroy destroys the Window. If the Window has a child,
 // Destroy calls Destroy on that as well.
 func (w *Window) Destroy() {
