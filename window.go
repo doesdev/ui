@@ -157,3 +157,8 @@ func (w *Window) Margined() bool {
 func (w *Window) SetMargined(margined bool) {
 	C.uiWindowSetMargined(w.w, frombool(margined))
 }
+
+// SetBorderless controls whether the Window has borders.
+func (w *Window) SetBorderless(borderless bool) {
+	C.uiWindowSetBorderless(w.w, frombool(borderless))
+}
